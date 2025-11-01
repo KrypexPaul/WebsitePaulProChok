@@ -6,7 +6,7 @@
     <title>Checkout</title>
     <style>
         body {
-            font-family: Arial,sans-serif;
+            font-family: Arial, sans-serif;
             background: #f4f4f4;
             margin: 0;
             padding: 0;
@@ -52,14 +52,6 @@
             font-size: 1.2rem;
         }
 
-        #discountDisplay {
-            text-align: right;
-            font-weight: bold;
-            color: #28a745;
-            margin-top: 5px;
-            font-size: 1rem;
-        }
-
         input {
             padding: 10px;
             margin: 8px 0;
@@ -94,14 +86,20 @@
             display: none;
             text-align: left;
         }
+
+        .bonus-item {
+            text-align: right;
+            font-weight: bold;
+            color: #28a745;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
-
     <div class="checkout-container">
         <h2>Checkout</h2>
         <div id="checkoutItems"></div>
-        <div id="discountDisplay"></div>
+        <div id="bonusItems"></div>
         <div class="total" id="checkoutTotal"></div>
 
         <div id="payScreen">
@@ -119,42 +117,63 @@
     </div>
 
     <script>
-        // Warenkorb & Bonus/Rabatt aus localStorage
+        // Warenkorb-Daten und Belohnungen aus localStorage laden
         let cart = JSON.parse(localStorage.getItem('checkoutCart')) || [];
-        let wonRewardText = localStorage.getItem('wonRewardText') || '';
         let discountPercent = parseInt(localStorage.getItem('discountPercent')) || 0;
-        let isRedeemed = wonRewardText || discountPercent ? true : false;
+        let wonRewardText = localStorage.getItem('wonRewardText') || '';
 
         function updateCheckout() {
             const itemsDiv = document.getElementById('checkoutItems');
             const totalDiv = document.getElementById('checkoutTotal');
-            const discountDiv = document.getElementById('discountDisplay');
+            const bonusDiv = document.getElementById('bonusItems');
+
             itemsDiv.innerHTML = '';
+            bonusDiv.innerHTML = '';
+
             let total = 0;
+
+            // Warenkorb-Elemente anzeigen
             cart.forEach(item => {
-                const div = document.createElement('div'); div.className = 'checkout-item';
-                const img = document.createElement('img'); img.src = item.img; div.appendChild(img);
-                const spanName = document.createElement('span'); spanName.textContent = item.name + ' (' + item.quantity + 'x)'; div.appendChild(spanName);
-                const spanPrice = document.createElement('span'); spanPrice.textContent = (item.price * item.quantity).toFixed(2) + '€'; div.appendChild(spanPrice);
+                const div = document.createElement('div');
+                div.className = 'checkout-item';
+
+                const img = document.createElement('img');
+                img.src = item.img;
+                div.appendChild(img);
+
+                const spanName = document.createElement('span');
+                spanName.textContent = `${item.name} (${item.quantity}x)`;
+                div.appendChild(spanName);
+
+                const spanPrice = document.createElement('span');
+                spanPrice.textContent = (item.price * item.quantity).toFixed(2) + '€';
+                div.appendChild(spanPrice);
+
                 itemsDiv.appendChild(div);
                 total += item.price * item.quantity;
             });
 
-            if (discountPercent && isRedeemed) {
-                discountDiv.textContent = 'Rabatt -' + discountPercent + '%';
-                total = (total * (100 - discountPercent) / 100).toFixed(2);
-            } else discountDiv.textContent = '';
-
-            if (wonRewardText && isRedeemed) {
-                const rewardDiv = document.createElement('div');
-                rewardDiv.textContent = 'Bonus: ' + wonRewardText;
-                rewardDiv.style.color = '#28a745'; rewardDiv.style.fontWeight = 'bold'; rewardDiv.style.textAlign = 'right';
-                itemsDiv.appendChild(rewardDiv);
+            // Rabatt anzeigen (falls vorhanden)
+            if (discountPercent > 0) {
+                const discountDiv = document.createElement('div');
+                discountDiv.className = 'bonus-item';
+                discountDiv.textContent = `Rabatt: -${discountPercent}%`;
+                bonusDiv.appendChild(discountDiv);
+                total = total * (100 - discountPercent) / 100;
             }
 
-            totalDiv.textContent = 'Gesamt: ' + total + '€';
+            // Gewonnene Gratisartikel / Bonus anzeigen
+            if (wonRewardText) {
+                const rewardDiv = document.createElement('div');
+                rewardDiv.className = 'bonus-item';
+                rewardDiv.textContent = `Bonus: ${wonRewardText}`;
+                bonusDiv.appendChild(rewardDiv);
+            }
+
+            totalDiv.textContent = 'Gesamt: ' + total.toFixed(2) + '€';
         }
 
+        // "Jetzt bezahlen" klick
         document.getElementById('proceedPayment').addEventListener('click', () => {
             document.getElementById('payScreen').style.display = 'none';
             document.getElementById('paymentForm').style.display = 'block';
@@ -168,21 +187,32 @@
             const expiry = document.getElementById('expiry').value.trim();
             const cvv = document.getElementById('cvv').value.trim();
 
-            if (!name || !address || !cardNumber || !expiry || !cvv) { alert('Bitte alle Felder ausfüllen'); return; }
-            if (cardNumber.length !== 16 || cvv.length !== 3 || expiry.length !== 5) { alert('Bitte gültige Kreditkarteninformationen eingeben'); return; }
+            if (!name || !address || !cardNumber || !expiry || !cvv) {
+                alert('Bitte alle Felder ausfüllen');
+                return;
+            }
 
-            // Nachricht ans Hauptfenster senden
-            window.opener.postMessage({ action: 'showThankYou' }, '*');
+            if (cardNumber.length !== 16 || cvv.length !== 3 || expiry.length !== 5) {
+                alert('Bitte gültige Kreditkarteninformationen eingeben');
+                return;
+            }
 
-            // Checkout Tab schließen
+            // Nach erfolgreicher Bestellung localStorage leeren
+            cart = [];
             localStorage.removeItem('checkoutCart');
             localStorage.removeItem('wonRewardText');
             localStorage.removeItem('discountPercent');
+
+            // Nachricht an Hauptseite für Animation
+            if (window.opener) {
+                window.opener.postMessage({ action: 'showThankYou' }, '*');
+            }
+
+            // Checkout schließen
             window.close();
         });
 
         updateCheckout();
     </script>
-
 </body>
 </html>

@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Startseite</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Montserrat:wght@400;700&family=Poppins:wght@600;700&family=Quicksand:wght@600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Montserrat:wght@400;700&family=Poppins:wght@600;700&family=Quicksand:wght@600;700&display=swap"
+          rel="stylesheet">
     <style>
         /* ------------------ GLOBAL ------------------ */
         * {
@@ -30,10 +29,10 @@
             transition: all 0.8s ease-out;
         }
 
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+            .fade-in.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
 
         /* ------------------ WARENKORB ------------------ */
         .cart-container {
@@ -83,10 +82,24 @@
         }
 
         @keyframes cartPulse {
-            0% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(0,0,0,0)); }
-            30% { transform: scale(1.18); filter: drop-shadow(0 8px 14px rgba(0,0,0,0.25)); }
-            60% { transform: scale(0.98); }
-            100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(0,0,0,0)); }
+            0% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 0 rgba(0,0,0,0));
+            }
+
+            30% {
+                transform: scale(1.18);
+                filter: drop-shadow(0 8px 14px rgba(0,0,0,0.25));
+            }
+
+            60% {
+                transform: scale(0.98);
+            }
+
+            100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 0 rgba(0,0,0,0));
+            }
         }
 
         /* ------------------ HERO ------------------ */
@@ -175,14 +188,50 @@
             margin-bottom: 6vh;
         }
 
-        .sortiment-title::after {
-            content: '';
-            display: block;
-            height: 3px;
-            width: 130px;
-            background: linear-gradient(to right, #ce9c4e, #6f3112);
-            margin: 12px auto 0 auto;
-            border-radius: 2px;
+            .sortiment-title::after {
+                content: '';
+                display: block;
+                height: 3px;
+                width: 130px;
+                background: linear-gradient(to right, #ce9c4e, #6f3112);
+                margin: 12px auto 0 auto;
+                border-radius: 2px;
+            }
+
+        /* Hintergrund-Text initial halbtransparent */
+        .flavor-item .bg-flavor-name {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-20deg); /* schräg */
+            font-size: 3rem; /* anpassbar */
+            color: rgba(255, 255, 255, 0.2); /* halbtransparent */
+            pointer-events: none; /* Text nicht klickbar */
+            text-align: center;
+            width: 100%;
+            white-space: nowrap;
+            transition: color 0.4s ease;
+            z-index: 1; /* damit Text hinter Button/Bild liegt */
+        }
+
+        /* Hover: Text wird voll sichtbar */
+        .flavor-item:hover .bg-flavor-name {
+            color: rgba(255, 255, 255, 1); /* 100% Deckkraft */
+        }
+
+        .flavor-item img {
+            width: 210%;
+            max-width: 850px;
+            border-radius: 18px;
+            margin-bottom: 8px;
+            transform: translateY(10px);
+            transition: transform 0.4s ease, opacity 0.4s ease;
+        }
+
+        /* Hover: Bild größer und durchsichtiger */
+        .flavor-item:hover img {
+            transform: translateY(5px) scale(1.2); /* größer */
+            opacity: 0.25; /* durchsichtiger */
         }
 
         .flavor-grid {
@@ -190,6 +239,67 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 5vw;
             justify-items: center;
+        }
+
+        .flavor-item {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .flavor-item {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .flavor-name {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-25deg); /* schräg */
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 2.5rem; /* groß über die Box */
+            opacity: 0.4; /* etwas sichtbarer, aber dezent */
+            text-transform: uppercase;
+            pointer-events: none;
+            z-index: 1;
+            white-space: nowrap;
+            letter-spacing: 2px;
+            text-align: center;
+            color: currentColor; /* Farbe individuell unten definiert */
+        }
+
+        /* Farbzuordnung passend zum Rahmen */
+        .flavor-item:nth-child(1) .flavor-name {
+            color: #FF073A;
+        }
+        /* Ruby Delight */
+        .flavor-item:nth-child(2) .flavor-name {
+            color: #00FFE0;
+        }
+        /* Aqua Mint */
+        .flavor-item:nth-child(3) .flavor-name {
+            color: #39FF14;
+        }
+        /* Lime Zest */
+        .flavor-item:nth-child(4) .flavor-name {
+            color: #FFAA00;
+        }
+        /* Golden Caramel */
+        .flavor-item:nth-child(5) .flavor-name {
+            color: #FF00FF;
+        }
+        /* Violet Berry */
+        .flavor-item:nth-child(6) .flavor-name {
+            color: #1E90FF;
+        }
+        /* Blue Ocean */
+
+        /* Bild und Button bleiben vorne */
+        .flavor-item img,
+        .flavor-item button {
+            position: relative;
+            z-index: 2;
         }
 
         .flavor-item {
@@ -204,123 +314,123 @@
             max-width: 360px;
         }
 
-        .flavor-item:nth-child(1) {
-            border-color: #FF073A;
-            box-shadow: 0 0 12px #FF073A44;
-        }
+            .flavor-item:nth-child(1) {
+                border-color: #FF073A;
+                box-shadow: 0 0 12px #FF073A44;
+            }
 
-        .flavor-item:nth-child(2) {
-            border-color: #00FFE0;
-            box-shadow: 0 0 12px #00FFE044;
-        }
+            .flavor-item:nth-child(2) {
+                border-color: #00FFE0;
+                box-shadow: 0 0 12px #00FFE044;
+            }
 
-        .flavor-item:nth-child(3) {
-            border-color: #39FF14;
-            box-shadow: 0 0 12px #39FF1444;
-        }
+            .flavor-item:nth-child(3) {
+                border-color: #39FF14;
+                box-shadow: 0 0 12px #39FF1444;
+            }
 
-        .flavor-item:nth-child(4) {
-            border-color: #FFAA00;
-            box-shadow: 0 0 12px #FFAA0044;
-        }
+            .flavor-item:nth-child(4) {
+                border-color: #FFAA00;
+                box-shadow: 0 0 12px #FFAA0044;
+            }
 
-        .flavor-item:nth-child(5) {
-            border-color: #FF00FF;
-            box-shadow: 0 0 12px #FF00FF44;
-        }
+            .flavor-item:nth-child(5) {
+                border-color: #FF00FF;
+                box-shadow: 0 0 12px #FF00FF44;
+            }
 
-        .flavor-item:nth-child(6) {
-            border-color: #1E90FF;
-            box-shadow: 0 0 12px #1E90FF44;
-        }
+            .flavor-item:nth-child(6) {
+                border-color: #1E90FF;
+                box-shadow: 0 0 12px #1E90FF44;
+            }
 
-        .flavor-item:hover {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
-        }
+            .flavor-item:hover {
+                transform: translateY(-10px) scale(1.05);
+                box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
+            }
 
-        .flavor-item img {
-            width: 210%;
-            max-width: 850px;
-            border-radius: 18px;
-            margin-bottom: 8px;
-            transform: translateY(10px);
-            transition: transform .3s, filter .3s;
-        }
+            .flavor-item img {
+                width: 210%;
+                max-width: 850px;
+                border-radius: 18px;
+                margin-bottom: 8px;
+                transform: translateY(10px);
+                transition: transform .3s, filter .3s;
+            }
 
-        .flavor-item:hover img {
-            transform: translateY(5px) scale(1.08);
-            filter: brightness(1.15) saturate(1.15);
-        }
+            .flavor-item:hover img {
+                transform: translateY(5px) scale(1.08);
+                filter: brightness(1.15) saturate(1.15);
+            }
 
-        /* ------------------ BUTTON-STYLES ------------------ */
-        .flavor-item button {
-            margin-top: -5px;
-            font-family: 'Roboto', sans-serif;
-            font-weight: 700;
-            background: linear-gradient(145deg, #111, #333);
-            color: #fff;
-            border: none;
-            padding: 14px 28px;
-            font-size: 1.05rem;
-            cursor: pointer;
-            border-radius: 28px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-            transition: all .2s;
-            position: relative;
-            overflow: visible; /* damit +1 sichtbar ist */
-        }
+            /* ------------------ BUTTON-STYLES ------------------ */
+            .flavor-item button {
+                margin-top: -5px;
+                font-family: 'Roboto', sans-serif;
+                font-weight: 700;
+                background: linear-gradient(145deg, #111, #333);
+                color: #fff;
+                border: none;
+                padding: 14px 28px;
+                font-size: 1.05rem;
+                cursor: pointer;
+                border-radius: 28px;
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+                transition: all .2s;
+                position: relative;
+                overflow: visible; /* damit +1 sichtbar ist */
+            }
 
-        .flavor-item button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-            background: linear-gradient(145deg, #222, #444);
-        }
+                .flavor-item button:hover {
+                    transform: scale(1.05);
+                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+                    background: linear-gradient(145deg, #222, #444);
+                }
 
-        .flavor-item button:active {
-            transform: scale(0.95);
-        }
+                .flavor-item button:active {
+                    transform: scale(0.95);
+                }
 
-        /* ------------------ +1 ANIMATION ------------------ */
-        .flavor-item button .plusOne {
-            position: absolute;
-            top: 10%;
-            right: 12%;
-            transform: translateY(0) scale(0);
-            font-family: 'Poppins', sans-serif;
-            font-weight: 800;
-            color: #fff;
-            background: rgba(0,0,0,0.15);
-            padding: 6px 10px;
-            border-radius: 999px;
-            font-size: 1rem;
-            opacity: 0;
-            pointer-events: none;
-            transition: transform .25s ease, opacity .25s ease, background .2s;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
-            -webkit-font-smoothing: antialiased;
-        }
+                /* ------------------ +1 ANIMATION ------------------ */
+                .flavor-item button .plusOne {
+                    position: absolute;
+                    top: 10%;
+                    right: 12%;
+                    transform: translateY(0) scale(0);
+                    font-family: 'Poppins', sans-serif;
+                    font-weight: 800;
+                    color: #fff;
+                    background: rgba(0,0,0,0.15);
+                    padding: 6px 10px;
+                    border-radius: 999px;
+                    font-size: 1rem;
+                    opacity: 0;
+                    pointer-events: none;
+                    transition: transform .25s ease, opacity .25s ease, background .2s;
+                    box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+                    -webkit-font-smoothing: antialiased;
+                }
 
-        /* Zustand während Animation */
-        .flavor-item button.animate {
-            background: linear-gradient(145deg, #2ecc71, #27ae60);
-            color: #fff;
-        }
+                /* Zustand während Animation */
+                .flavor-item button.animate {
+                    background: linear-gradient(145deg, #2ecc71, #27ae60);
+                    color: #fff;
+                }
 
-        .flavor-item button.animate .plusOne {
-            transform: translateY(-40px) scale(1);
-            opacity: 1;
-            background: rgba(0,0,0,0.25);
-            color: #eafff0;
-            font-size: 1.15rem;
-        }
+                    .flavor-item button.animate .plusOne {
+                        transform: translateY(-40px) scale(1);
+                        opacity: 1;
+                        background: rgba(0,0,0,0.25);
+                        color: #eafff0;
+                        font-size: 1.15rem;
+                    }
 
-        /* kleine Ausblend-Transition nachdem +1 kurz gezeigt wurde */
-        .flavor-item button .plusOne.hide {
-            transform: translateY(-70px) scale(0.8);
-            opacity: 0;
-            transition: transform .35s ease-in, opacity .35s ease-in;
-        }
+                /* kleine Ausblend-Transition nachdem +1 kurz gezeigt wurde */
+                .flavor-item button .plusOne.hide {
+                    transform: translateY(-70px) scale(0.8);
+                    opacity: 0;
+                    transition: transform .35s ease-in, opacity .35s ease-in;
+                }
 
         /* ------------------ SEITE 3 & 4 ------------------ */
         #page3-4-wrapper {
@@ -338,36 +448,36 @@
             background: transparent;
         }
 
-        #page3 .image-container {
-            flex: 1 1 500px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+            #page3 .image-container {
+                flex: 1 1 500px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
 
-        #page3 .image-container img {
-            width: 90%;
-            max-width: 850px;
-            border-radius: 18px;
-        }
+                #page3 .image-container img {
+                    width: 90%;
+                    max-width: 850px;
+                    border-radius: 18px;
+                }
 
-        #page3 .text-container {
-            flex: 1 1 400px;
-            padding-left: 20px;
-            font-size: 1.8rem;
-            line-height: 1.5;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            opacity: 0;
-            transform: translateX(-30px);
-            transition: all 1s ease;
-        }
+            #page3 .text-container {
+                flex: 1 1 400px;
+                padding-left: 20px;
+                font-size: 1.8rem;
+                line-height: 1.5;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                opacity: 0;
+                transform: translateX(-30px);
+                transition: all 1s ease;
+            }
 
-        #page3 .text-container.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
+                #page3 .text-container.visible {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
 
         #page4 {
             display: flex;
@@ -392,10 +502,10 @@
             transition: all 1s ease;
         }
 
-        .page4-title.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+            .page4-title.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
 
         .page4-container {
             display: flex;
@@ -454,9 +564,9 @@
             transition: transform .2s;
         }
 
-        .bomb:hover {
-            transform: scale(1.05);
-        }
+            .bomb:hover {
+                transform: scale(1.05);
+            }
 
         .win-box {
             background: white;
@@ -472,30 +582,30 @@
             position: relative;
         }
 
-        .win-box ul {
-            list-style: none;
-            padding-left: 0;
-            font-size: 1.4rem;
-            margin: 0;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-start;
-        }
+            .win-box ul {
+                list-style: none;
+                padding-left: 0;
+                font-size: 1.4rem;
+                margin: 0;
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+            }
 
-        .win-box li {
-            padding: 10px;
-            border-radius: 15px;
-            background: linear-gradient(135deg, #FFD700, #FFC300);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            font-weight: bold;
-            font-size: 1.2rem;
-            width: 90%;
-            text-align: center;
-            margin: 5px auto;
-            animation: popReward 0.6s forwards;
-        }
+            .win-box li {
+                padding: 10px;
+                border-radius: 15px;
+                background: linear-gradient(135deg, #FFD700, #FFC300);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                font-weight: bold;
+                font-size: 1.2rem;
+                width: 90%;
+                text-align: center;
+                margin: 5px auto;
+                animation: popReward 0.6s forwards;
+            }
 
         .redeem-button {
             background: #28a745;
@@ -510,17 +620,17 @@
             margin-top: 15px;
         }
 
-        .redeem-button.redeemed,
-        .redeem-button.disabled {
-            background: #1e5c29;
-            cursor: default;
-        }
+            .redeem-button.redeemed,
+            .redeem-button.disabled {
+                background: #1e5c29;
+                cursor: default;
+            }
 
-        .redeem-button.disabled {
-            background: gray;
-            color: #ccc;
-            cursor: not-allowed;
-        }
+            .redeem-button.disabled {
+                background: gray;
+                color: #ccc;
+                cursor: not-allowed;
+            }
 
         .game-over-message {
             position: absolute;
@@ -536,9 +646,9 @@
             pointer-events: none;
         }
 
-        .game-over-message.show {
-            opacity: 1;
-        }
+            .game-over-message.show {
+                opacity: 1;
+            }
 
         @keyframes explosionAnim {
             0% {
@@ -626,12 +736,12 @@
             position: relative;
         }
 
-        .checkout-container h2 {
-            font-family: 'Poppins', sans-serif;
-            color: #6E1C9B;
-            text-align: center;
-            margin-bottom: 20px;
-        }
+            .checkout-container h2 {
+                font-family: 'Poppins', sans-serif;
+                color: #6E1C9B;
+                text-align: center;
+                margin-bottom: 20px;
+            }
 
         .close-checkout {
             position: absolute;
@@ -650,15 +760,15 @@
             align-items: center;
         }
 
-        .checkout-item img {
-            width: 50px;
-            border-radius: 8px;
-            margin-right: 10px;
-        }
+            .checkout-item img {
+                width: 50px;
+                border-radius: 8px;
+                margin-right: 10px;
+            }
 
-        .checkout-item span {
-            flex: 1;
-        }
+            .checkout-item span {
+                flex: 1;
+            }
 
         .total {
             font-weight: bold;
@@ -678,26 +788,58 @@
             font-size: 1rem;
         }
 
-        .checkout-container button:hover {
-            background: #8E38C1;
-        }
+            .checkout-container button:hover {
+                background: #8E38C1;
+            }
 
         .payment-form {
             display: none;
             flex-direction: column;
         }
 
-        .payment-form input {
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 10px;
-            border: 2px solid #ddd;
-            outline: none;
+            .payment-form input {
+                padding: 10px;
+                margin: 8px 0;
+                border-radius: 10px;
+                border: 2px solid #ddd;
+                outline: none;
+            }
+
+                .payment-form input:focus {
+                    border-color: #6E1C9B;
+                }
+
+
+        #scrollTopBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 9999;
         }
 
-        .payment-form input:focus {
-            border-color: #6E1C9B;
-        }
+            #scrollTopBtn:hover {
+                background: rgba(0, 0, 0, 0.8);
+                transform: translateY(-3px);
+            }
+
+            #scrollTopBtn.show {
+                opacity: 1;
+                pointer-events: auto;
+            }
 
         .thankyou-message {
             position: fixed;
@@ -717,10 +859,10 @@
             opacity: 0;
         }
 
-        .thankyou-message.show {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-        }
+            .thankyou-message.show {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
 
         /* ------------------ RESPONSIVE ------------------ */
         @media(max-width:1024px) {
@@ -751,6 +893,81 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        #impressumPage {
+            display: none;
+            background-color: #333;
+            color: #fff;
+            min-height: 100vh;
+            padding: 40px;
+            position: relative;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+            #impressumPage a {
+                color: #fff;
+                text-decoration: underline;
+            }
+
+            #impressumPage h1,
+            #impressumPage h3 {
+                text-align: center;
+                color: #fff;
+            }
+
+            #impressumPage .content-wrapper {
+                max-width: 900px;
+                margin: 0 auto;
+            }
+
+        #closeImpressum {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            background: #fff;
+            color: #333;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+
+        /* ------------------ RECHTLICHER FOOTER ------------------ */
+        #legalSection {
+            background-color: #555;
+            color: #fff;
+            padding: 15px 20px;
+            text-align: center;
+            position: relative;
+            font-size: 1rem;
+        }
+
+            #legalSection a {
+                color: #fff;
+                text-decoration: underline;
+                cursor: pointer;
+                transition: color 0.2s;
+            }
+
+                #legalSection a:hover {
+                    color: #f0f0f0;
+                }
+
+        /* ------------------ RESPONSIVE ------------------ */
+        @media(max-width:768px) {
+            #impressumPage {
+                padding: 20px;
+            }
+
+            #closeImpressum {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
+            }
+        }
     </style>
 </head>
 
@@ -769,39 +986,51 @@
         <div class="slogan fade-in">Stronger bites for stronger you.</div>
     </section>
 
+
     <!-- SORTIMENT -->
     <section class="bg-gradient-long">
         <div class="content">
             <div class="sortiment-title fade-in">Unser Sortiment</div>
             <div class="flavor-grid fade-in">
-                <!-- Buttons jetzt mit span.plusOne und this übergabe -->
                 <div class="flavor-item">
-                    <img src="schokolade.png" alt=""><button onclick="addToCart(this,'Sorte 1','schokolade.png',3.99)">
+                    <span class="flavor-name">Ruby Delight</span>
+                    <img src="schokolade.png" alt="">
+                    <button onclick="addToCart(this,'Ruby Delight','schokolade.png',3.99)">
                         In den Warenkorb 3,99€<span class="plusOne">+1</span>
                     </button>
                 </div>
                 <div class="flavor-item">
-                    <img src="schokolade.png" alt=""><button onclick="addToCart(this,'Sorte 2','schokolade.png',3.99)">
+                    <span class="flavor-name">Aqua Mint</span>
+                    <img src="schokolade.png" alt="">
+                    <button onclick="addToCart(this,'Aqua Mint','schokolade.png',3.99)">
                         In den Warenkorb 3,99€<span class="plusOne">+1</span>
                     </button>
                 </div>
                 <div class="flavor-item">
-                    <img src="schokolade.png" alt=""><button onclick="addToCart(this,'Sorte 3','schokolade.png',3.99)">
+                    <span class="flavor-name">Lime Zest</span>
+                    <img src="schokolade.png" alt="">
+                    <button onclick="addToCart(this,'Lime Zest','schokolade.png',3.99)">
                         In den Warenkorb 3,99€<span class="plusOne">+1</span>
                     </button>
                 </div>
                 <div class="flavor-item">
-                    <img src="schokolade.png" alt=""><button onclick="addToCart(this,'Sorte 4','schokolade.png',3.99)">
+                    <span class="flavor-name">Golden Caramel</span>
+                    <img src="schokolade.png" alt="">
+                    <button onclick="addToCart(this,'Golden Caramel','schokolade.png',3.99)">
                         In den Warenkorb 3,99€<span class="plusOne">+1</span>
                     </button>
                 </div>
                 <div class="flavor-item">
-                    <img src="schokolade.png" alt=""><button onclick="addToCart(this,'Sorte 5','schokolade.png',3.99)">
+                    <span class="flavor-name">Violet Berry</span>
+                    <img src="schokolade.png" alt="">
+                    <button onclick="addToCart(this,'Violet Berry','schokolade.png',3.99)">
                         In den Warenkorb 3,99€<span class="plusOne">+1</span>
                     </button>
                 </div>
                 <div class="flavor-item">
-                    <img src="schokolade.png" alt=""><button onclick="addToCart(this,'Sorte 6','schokolade.png',3.99)">
+                    <span class="flavor-name">Blue Ocean</span>
+                    <img src="schokolade.png" alt="">
+                    <button onclick="addToCart(this,'Blue Ocean','schokolade.png',3.99)">
                         In den Warenkorb 3,99€<span class="plusOne">+1</span>
                     </button>
                 </div>
@@ -814,9 +1043,11 @@
                 <div class="image-container fade-in"><img src="about us bild.png" alt=""></div>
                 <div class="text-container" id="aboutText">
                     <h2>Über Uns</h2>
-                    <p>Wir sind Paul Straub und Aaron Störger aus Frankfurt am Main – zwei Gründer mit einer Mission: Schokolade neu zu erfinden.
-Unsere Proteinschokolade vereint echten Geschmack mit hochwertigen Nährstoffen – ganz ohne Kompromisse.
-Wir sind überzeugt: Gesunde Schokolade ist die Zukunft. 🍫</p>
+                    <p>
+                        Wir sind Paul Straub und Aaron Störger aus Frankfurt am Main – zwei Gründer mit einer Mission: Schokolade neu zu erfinden.
+                        Unsere Proteinschokolade vereint echten Geschmack mit hochwertigen Nährstoffen – ganz ohne Kompromisse.
+                        Wir sind überzeugt: Gesunde Schokolade ist die Zukunft. 🍫
+                    </p>
                 </div>
             </div>
 
@@ -863,44 +1094,132 @@ Wir sind überzeugt: Gesunde Schokolade ist die Zukunft. 🍫</p>
         <p>Deine Bestellung wurde erfolgreich aufgegeben.</p>
     </div>
 
+    <button id="scrollTopBtn" title="Nach oben">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+        </svg>
+    </button>
+    <section id="legalSection" style="background:#333; color:#fff; padding:20px; text-align:center;">
+        <a href="#" id="showImpressum" style="color:#fff; text-decoration:underline; font-size:1rem;">Rechtliches</a>
+    </section>
 
+    <div id="impressumPage" style="
+    display:none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    overflow-y: auto;
+    z-index: 9999;
+    font-family: 'Arial', sans-serif;
+">
+
+        <!-- Content Box -->
+        <div style="
+      max-width: 800px;
+      margin: 50px auto;
+      background: #fff;
+      color: #333;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      position: relative;
+  ">
+
+            <!-- Close Button -->
+            <button id="closeImpressum" style="
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 35px;
+        height: 35px;
+        background: #ff5c5c;
+        border: none;
+        border-radius: 50%;
+        font-size: 20px;
+        color: #fff;
+        cursor: pointer;
+        font-weight: bold;
+        transition: transform 0.2s ease;
+    " onmouseover="this.style.transform='rotate(90deg)'" onmouseout="this.style.transform='rotate(0deg)'">
+                ×
+            </button>
+
+            <!-- Impressum Inhalt -->
+            <div style="line-height: 1.6; font-size: 16px;">
+                <h1 style="text-align:center; margin-bottom:20px;">Impressum & Rechtliche Hinweise</h1>
+
+                <h2>1. Impressum</h2>
+                <p>
+                    Betreiber/Firma: Paul Straub<br>
+                    Adresse: alt-heddernheim 3A, 60439 Frankfurt am Main, Deutschland<br>
+                    Telefon: +49 15172961359<br>
+                    E-Mail: paul.straub@gmx.net<br>
+                    Handelsregister: HRB 123456, Amtsgericht Franfurt am Main<br>
+                    Umsatzsteuer-ID: DE123456789<br>
+                    Verantwortlich für den Inhalt: Paul Straub
+                </p>
+
+                <h2>2. Datenschutzerklärung (DSGVO)</h2>
+                <p>
+                    Wir erheben und verarbeiten personenbezogene Daten nur zur Bestellabwicklung und zur Verbesserung unserer Website.
+                    Mehr Informationen: <a href="datenschutz.html" target="_blank" style="color: #007BFF;">Datenschutzerklärung</a>.
+                </p>
+
+                <h2>3. Widerrufsrecht</h2>
+                <p>Verbraucher können binnen nicht in  widerrufen. <a href="widerrufsbelehrung.html" target="_blank" style="color: #007BFF;">Details hier</a>.</p>
+
+                <h2>4. AGB</h2>
+                <p>Unsere Allgemeinen Geschäftsbedingungen: <a href="agb.html" target="_blank" style="color: #007BFF;">AGB</a>.</p>
+
+                <h2>5. Haftungsausschluss</h2>
+                <p>Keine Haftung für Schäden oder externe Links. Minispiel nur zu Unterhaltungszwecken.</p>
+
+                <h2>6. Jugendschutz / Altersbeschränkung</h2>
+                <p>Geeignet ab 12 Jahren. Kein Glücksspiel.</p>
+
+                <h2>7. Cookies / Tracking</h2>
+                <p>Sollte es Cookies geben werden diese für Analyse und Funktionalität verwendet. Kann im Browser nicht deaktiviert werden.</p>
+
+                <h2>8. Urheberrecht</h2>
+                <p>Alle Inhalte urheberrechtlich geschützt. Nutzung nur mit Genehmigung.</p>
+
+                <h2>9. Online-Streitbeilegung</h2>
+                <p>
+                    EU-Plattform für Online-Streitbeilegung:
+                    <a href="https://ec.europa.eu/consumers/odr/" target="_blank" style="color: #007BFF;">https://ec.europa.eu/consumers/odr/</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
     <script>
         // ------------------ Warenkorb ------------------
         let cart = [];
         let discountPercent = 0;
         let isRedeemed = false;
-        let wonRewardText = ''; // global, damit updateCheckout darauf zugreifen kann
+        let wonRewardText = '';
+
         const cartCount = document.getElementById('cartCount');
         const cartContainer = document.getElementById('cartContainer');
 
-        /**
-         * addToCart(btn, name, imgSrc, price)
-         * btn: das Button-Element (this)
-         * führt Animation innerhalb des Buttons aus und updated Warenkorb
-         */
+        /* ------------------ BUTTON-ANIMATION (+1) & WARENKORB ------------------ */
         function addToCart(btn, name, imgSrc, price) {
             // --- Button-Animation (+1) ---
-            try {
-                const plus = btn.querySelector('.plusOne');
-                // setze animate-klassen
-                btn.classList.add('animate');
-                // entferne hide falls vorher gesetzt
+            const plus = btn.querySelector('.plusOne');
+            btn.classList.add('animate');
+            plus.classList.remove('hide');
+
+            // kurz anzeigen, dann ausblenden
+            setTimeout(() => plus.classList.add('hide'), 420);
+
+            // Entferne animate-Klasse danach, damit Button wieder normal wird
+            setTimeout(() => {
+                btn.classList.remove('animate');
                 plus.classList.remove('hide');
-
-                // Kurz anzeigen, dann ausblenden
-                setTimeout(() => {
-                    plus.classList.add('hide');
-                }, 420); // +1 sichtbar
-
-                // Entferne animate-Klasse danach, damit Button wieder normal wird
-                setTimeout(() => {
-                    btn.classList.remove('animate');
-                    // entferne hide, damit beim nächsten Klick wieder sauber startet
-                    plus.classList.remove('hide');
-                }, 750);
-            } catch (e) {
-                console.warn('Animation fehlgeschlagen:', e);
-            }
+            }, 750);
 
             // --- Warenkorb-Logik ---
             let item = cart.find(i => i.name === name);
@@ -919,91 +1238,108 @@ Wir sind überzeugt: Gesunde Schokolade ist die Zukunft. 🍫</p>
             setTimeout(() => cartContainer.classList.remove('pulse'), 650);
         }
 
-        // Checkout Overlay
+        /* ------------------ SCROLL-BUTTON ------------------ */
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 200) scrollTopBtn.classList.add('show');
+            else scrollTopBtn.classList.remove('show');
+        });
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        /* ------------------ CHECKOUT OVERLAY ------------------ */
         cartContainer.addEventListener('click', () => {
             // Warenkorb-Daten speichern
             localStorage.setItem('checkoutCart', JSON.stringify(cart));
-            // Öffne Checkout in neuem Tab
+
+            // Gewinninfos speichern
+            localStorage.setItem('wonRewardText', wonRewardText);
+            localStorage.setItem('discountPercent', discountPercent);
+
+            // Checkout öffnen
             window.open('checkout.html', '_blank');
         });
 
-        document.getElementById('closeCheckout').addEventListener('click', () => {
-            document.getElementById('checkoutOverlay').style.display = 'none';
-        });
-
-        // Checkout aktualisieren
+        /* ------------------ CHECKOUT AKTUALISIEREN ------------------ */
         function updateCheckout() {
             const itemsDiv = document.getElementById('checkoutItems');
             const totalDiv = document.getElementById('checkoutTotal');
             const discountDiv = document.getElementById('discountDisplay');
+            const redeemButton = document.getElementById('redeemButton');
+            const winList = document.getElementById('winList');
+
             itemsDiv.innerHTML = '';
             let total = 0;
+
             cart.forEach(item => {
-                const div = document.createElement('div'); div.className = 'checkout-item';
+                const div = document.createElement('div');
+                div.className = 'checkout-item';
                 const img = document.createElement('img'); img.src = item.img; div.appendChild(img);
                 const spanName = document.createElement('span'); spanName.textContent = item.name + ' (' + item.quantity + 'x)'; div.appendChild(spanName);
                 const spanPrice = document.createElement('span'); spanPrice.textContent = (item.price * item.quantity).toFixed(2) + '€'; div.appendChild(spanPrice);
                 itemsDiv.appendChild(div);
                 total += item.price * item.quantity;
             });
+
+            totalDiv.textContent = 'Gesamt: ' + total.toFixed(2) + '€';
+
+            if (wonRewardText) {
+                winList.innerHTML = '';
+                const li = document.createElement('li');
+                li.textContent = wonRewardText;
+                li.style.animation = 'popReward 0.6s forwards';
+                winList.appendChild(li);
+                // direkt speichern
+                localStorage.setItem('wonRewardText', wonRewardText);
+                localStorage.setItem('discountPercent', discountPercent);
+            }
+
             redeemButton.addEventListener('click', () => {
                 if (!discountPercent && !wonRewardText) return;
                 isRedeemed = true;
                 redeemButton.textContent = 'Eingelöst';
                 redeemButton.classList.add('redeemed');
-
-                // Bonus/Rabatt speichern, damit Checkout ihn anzeigen kann
                 localStorage.setItem('wonRewardText', wonRewardText);
                 localStorage.setItem('discountPercent', discountPercent);
-
-                updateCheckout(); // Optional: wenn du Checkout Overlay offen hast
             });
-
-
-            totalDiv.textContent = 'Gesamt: ' + total + '€';
-
-            if (rewardText) {
-                winList.innerHTML = '';
-                const li = document.createElement('li');
-                li.textContent = rewardText;
-                li.style.animation = 'popReward 0.6s forwards';
-                winList.appendChild(li);
-                wonRewardText = rewardText; // Gewinn merken
-
-                // Neu: Speichern für Checkout-Seite
-                localStorage.setItem('wonRewardText', wonRewardText);
-                localStorage.setItem('discountPercent', discountPercent);
-            }
-
         }
 
-        // Payment form anzeigen
+        /* ------------------ PAYMENT FORM ANZEIGEN ------------------ */
         document.getElementById('proceedPayment').addEventListener('click', () => {
             document.getElementById('proceedPayment').style.display = 'none';
             document.getElementById('paymentForm').style.display = 'flex';
         });
 
-        // Bestellung abschließen
+        /* ------------------ BESTELLUNG ABSCHLIESSEN ------------------ */
         document.getElementById('completeOrder').addEventListener('click', () => {
             const name = document.getElementById('name').value.trim();
             const address = document.getElementById('address').value.trim();
             const cardNumber = document.getElementById('cardNumber').value.trim();
             const expiry = document.getElementById('expiry').value.trim();
             const cvv = document.getElementById('cvv').value.trim();
-            if (!name || !address || !cardNumber || !expiry || !cvv) { alert('Bitte alle Felder korrekt ausfüllen'); return; }
-            if (cardNumber.length !== 16 || cvv.length !== 3 || expiry.length !== 5) { alert('Bitte gültige Kreditkarteninformationen eingeben'); return; }
+
+            if (!name || !address || !cardNumber || !expiry || !cvv) {
+                alert('Bitte alle Felder korrekt ausfüllen');
+                return;
+            }
+            if (cardNumber.length !== 16 || cvv.length !== 3 || expiry.length !== 5) {
+                alert('Bitte gültige Kreditkarteninformationen eingeben');
+                return;
+            }
+
             window.postMessage({ action: 'showThankYou' }, '*');
             document.getElementById('paymentForm').reset();
             document.getElementById('paymentForm').style.display = 'none';
             document.getElementById('proceedPayment').style.display = 'flex';
         });
 
-
+        /* ------------------ THANK YOU MESSAGE ------------------ */
         window.addEventListener('message', event => {
             if (event.data.action === 'showThankYou') {
                 const msg = document.getElementById('thankyouMessage');
                 msg.classList.add('show');
-                setTimeout(() => msg.classList.remove('show'), 4000); // verschwindet nach 4 Sekunden
+                setTimeout(() => msg.classList.remove('show'), 4000);
                 document.getElementById('checkoutOverlay').style.display = 'none';
                 cart = [];
                 cartCount.textContent = 0;
@@ -1011,20 +1347,23 @@ Wir sind überzeugt: Gesunde Schokolade ist die Zukunft. 🍫</p>
             }
         });
 
-
-
-        // ------------------ Mini-Spiel ------------------
+        /* ------------------ MINI-SPIEL ------------------ */
         const bombGrid = document.getElementById('bombGrid');
-        const winList = document.getElementById('winList');
         const gameOverMsg = document.getElementById('gameOverMsg');
         const bombArea = document.getElementById('bombArea');
         const totalFields = 24;
         const bombCount = 4;
-        let bombIndices = [], revealedSafeCount = 0, gameOver = false;
+        let bombIndices = [];
+        let revealedSafeCount = 0;
+        let gameOver = false;
+
+        // zufällige Bomben
         while (bombIndices.length < bombCount) {
             const rand = Math.floor(Math.random() * totalFields);
             if (!bombIndices.includes(rand)) bombIndices.push(rand);
         }
+
+        // Spielfeld erzeugen
         for (let i = 0; i < totalFields; i++) {
             const img = document.createElement('img');
             img.src = 'bombe.png';
@@ -1033,6 +1372,7 @@ Wir sind überzeugt: Gesunde Schokolade ist die Zukunft. 🍫</p>
             bombGrid.appendChild(img);
         }
 
+        // Belohnungstext
         function getRewardText(count) {
             if (count <= 10) {
                 discountPercent = count * 5;
@@ -1043,45 +1383,54 @@ Wir sind überzeugt: Gesunde Schokolade ist die Zukunft. 🍫</p>
             return '';
         }
 
+        // Klick auf Feld
         bombGrid.addEventListener('click', e => {
             const target = e.target;
             if (!target.classList.contains('bomb') || gameOver) return;
             const index = parseInt(target.dataset.index);
             target.style.pointerEvents = 'none';
+
             if (bombIndices.includes(index)) {
                 target.src = 'explosion.png';
                 target.style.animation = 'explosionAnim 0.8s forwards';
                 bombArea.style.backgroundColor = 'rgba(128,128,128,0.5)';
                 gameOver = true;
-                document.getElementById('redeemButton').classList.add('disabled');
+                redeemButton.classList.add('disabled');
                 gameOverMsg.classList.add('show');
                 return;
             }
+
             revealedSafeCount++;
             target.src = 'schokolade(1).png';
             target.style.width = '50%';
             target.style.animation = 'popTafel 0.6s forwards';
+
             const rewardText = getRewardText(revealedSafeCount);
             if (rewardText) {
+                const winList = document.getElementById('winList');
                 winList.innerHTML = '';
                 const li = document.createElement('li');
                 li.textContent = rewardText;
                 li.style.animation = 'popReward 0.6s forwards';
                 winList.appendChild(li);
-                wonRewardText = rewardText; // Gewinn merken
+                wonRewardText = rewardText;
+
+                localStorage.setItem('wonRewardText', wonRewardText);
+                localStorage.setItem('discountPercent', discountPercent);
             }
         });
 
-        const redeemButton = document.getElementById('redeemButton');
+        /* ------------------ REDEEM BUTTON ------------------ */
         redeemButton.addEventListener('click', () => {
-            if (!discountPercent || isRedeemed || gameOver) return;
+            if (isRedeemed || gameOver) return;
             isRedeemed = true;
             redeemButton.textContent = 'Eingelöst';
             redeemButton.classList.add('redeemed');
-            updateCheckout();
+            localStorage.setItem('wonRewardText', wonRewardText);
+            localStorage.setItem('discountPercent', discountPercent);
         });
 
-        // Scroll Animation
+        /* ------------------ SCROLL ANIMATION ------------------ */
         const faders = document.querySelectorAll('.fade-in');
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
@@ -1089,7 +1438,8 @@ Wir sind überzeugt: Gesunde Schokolade ist die Zukunft. 🍫</p>
             });
         }, { threshold: 0.2 });
         faders.forEach(fader => observer.observe(fader));
-        // About Us Animation
+
+        /* ------------------ ABOUT US ANIMATION ------------------ */
         const aboutText = document.getElementById('aboutText');
         const aboutObserver = new IntersectionObserver(entries => {
             entries.forEach(entry => {
@@ -1097,7 +1447,8 @@ Wir sind überzeugt: Gesunde Schokolade ist die Zukunft. 🍫</p>
             });
         }, { threshold: 0.3 });
         aboutObserver.observe(aboutText);
-        // Game title animation
+
+        /* ------------------ GAME TITLE ANIMATION ------------------ */
         const gameTitle = document.getElementById('gameTitle');
         const titleObserver = new IntersectionObserver(entries => {
             entries.forEach(entry => {
@@ -1105,6 +1456,23 @@ Wir sind überzeugt: Gesunde Schokolade ist die Zukunft. 🍫</p>
             });
         }, { threshold: 0.3 });
         titleObserver.observe(gameTitle);
+
+        const showBtn = document.getElementById('showImpressum');
+        const impressumPage = document.getElementById('impressumPage');
+        const closeBtn = document.getElementById('closeImpressum');
+        const normalSections = document.querySelectorAll('section, #page3-4-wrapper, .checkout-overlay, .thankyou-message');
+
+        showBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            normalSections.forEach(el => el.style.display = 'none');
+            impressumPage.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        closeBtn.addEventListener('click', () => {
+            impressumPage.style.display = 'none';
+            normalSections.forEach(el => el.style.display = '');
+        });
     </script>
 </body>
 
