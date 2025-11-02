@@ -1,0 +1,959 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', 'Roboto', 'Poppins', 'Quicksand', sans-serif; /* Grundschriftart */
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease-out;
+}
+
+    .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+/* ------------------ WARENKORB ------------------ */
+.cart-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.cart-icon {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease, filter 0.25s ease;
+}
+
+.cart-container:hover .cart-icon {
+    transform: scale(1.2);
+}
+
+.cart-badge {
+    position: absolute;
+    top: 6px;
+    right: -2px;
+    background: black;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.cart-container:hover .cart-badge {
+    transform: scale(1.2);
+}
+
+/* pulsieren wenn item hinzugefügt */
+.cart-container.pulse .cart-icon {
+    animation: cartPulse 0.6s ease;
+}
+
+@keyframes cartPulse {
+    0% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 0 rgba(0,0,0,0));
+    }
+
+    30% {
+        transform: scale(1.18);
+        filter: drop-shadow(0 8px 14px rgba(0,0,0,0.25));
+    }
+
+    60% {
+        transform: scale(0.98);
+    }
+
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 0 rgba(0,0,0,0));
+    }
+}
+
+/* ------------------ HERO ------------------ */
+.hero {
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(135deg, #14051D 0%, #3D1056 50%, #6E1C9B 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.protein-image {
+    position: absolute;
+    top: 50%;
+    right: 8%;
+    transform: translateY(-50%);
+    width: 27vw;
+    z-index: 4;
+}
+
+.low-calorie-img {
+    position: absolute;
+    top: 40%;
+    left: 8%;
+    width: 18vw;
+    z-index: 10;
+}
+
+.choco-image {
+    position: absolute;
+    top: 62%;
+    left: 48%;
+    width: 76vw;
+    z-index: 3;
+    transform: translate(-50%, -50%) rotate(-15deg);
+}
+
+.logo-image {
+    position: absolute;
+    top: 12%;
+    left: 47%;
+    transform: translate(-50%, -50%);
+    width: 41vw;
+    z-index: 6;
+    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.3));
+}
+
+.slogan {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    font-family: "Arial Rounded MT Bold", Arial, sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    background: linear-gradient(to right, #BE9D3B, #ECE07B, #F3E883, #E4CC67, #DBB652);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    z-index: 10;
+}
+
+/* ------------------ SORTIMENT ------------------ */
+.bg-gradient-long {
+    background: linear-gradient(to bottom, #0F0F0F, #1B1B1B, #282828, #323232, #3A3A3A);
+    width: 100%;
+    min-height: 230vh;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8vh 8vw;
+    min-height: 150vh;
+}
+
+.sortiment-title {
+    font-size: 4rem;
+    font-weight: bold;
+    text-align: center;
+    background: linear-gradient(to right, #ce9c4e, #6f3112);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 6vh;
+}
+
+    .sortiment-title::after {
+        content: '';
+        display: block;
+        height: 3px;
+        width: 130px;
+        background: linear-gradient(to right, #ce9c4e, #6f3112);
+        margin: 12px auto 0 auto;
+        border-radius: 2px;
+    }
+
+/* Hintergrund-Text initial halbtransparent */
+.flavor-item .bg-flavor-name {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-20deg); /* schräg */
+    font-size: 3rem; /* anpassbar */
+    color: rgba(255, 255, 255, 0.2); /* halbtransparent */
+    pointer-events: none; /* Text nicht klickbar */
+    text-align: center;
+    width: 100%;
+    white-space: nowrap;
+    transition: color 0.4s ease;
+    z-index: 1; /* damit Text hinter Button/Bild liegt */
+}
+
+/* Hover: Text wird voll sichtbar */
+.flavor-item:hover .bg-flavor-name {
+    color: rgba(255, 255, 255, 1); /* 100% Deckkraft */
+}
+
+.flavor-item img {
+    width: 210%;
+    max-width: 850px;
+    border-radius: 18px;
+    margin-bottom: 8px;
+    transform: translateY(10px);
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+/* Hover: Bild größer und durchsichtiger */
+.flavor-item:hover img {
+    transform: translateY(5px) scale(1.2); /* größer */
+    opacity: 0.25; /* durchsichtiger */
+}
+
+.flavor-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5vw;
+    justify-items: center;
+}
+
+.flavor-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.flavor-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.flavor-name {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-25deg); /* schräg */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 2.5rem; /* groß über die Box */
+    opacity: 0.4; /* etwas sichtbarer, aber dezent */
+    text-transform: uppercase;
+    pointer-events: none;
+    z-index: 1;
+    white-space: nowrap;
+    letter-spacing: 2px;
+    text-align: center;
+    color: currentColor; /* Farbe individuell unten definiert */
+}
+
+/* Farbzuordnung passend zum Rahmen */
+.flavor-item:nth-child(1) .flavor-name {
+    color: #FF073A;
+}
+/* Ruby Delight */
+.flavor-item:nth-child(2) .flavor-name {
+    color: #00FFE0;
+}
+/* Aqua Mint */
+.flavor-item:nth-child(3) .flavor-name {
+    color: #39FF14;
+}
+/* Lime Zest */
+.flavor-item:nth-child(4) .flavor-name {
+    color: #FFAA00;
+}
+/* Golden Caramel */
+.flavor-item:nth-child(5) .flavor-name {
+    color: #FF00FF;
+}
+/* Violet Berry */
+.flavor-item:nth-child(6) .flavor-name {
+    color: #1E90FF;
+}
+/* Blue Ocean */
+
+/* Bild und Button bleiben vorne */
+.flavor-item img,
+.flavor-item button {
+    position: relative;
+    z-index: 2;
+}
+
+.flavor-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    border-radius: 20px;
+    background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+    transition: transform .4s, box-shadow .4s;
+    border: 3px solid;
+    max-width: 360px;
+}
+
+    .flavor-item:nth-child(1) {
+        border-color: #FF073A;
+        box-shadow: 0 0 12px #FF073A44;
+    }
+
+    .flavor-item:nth-child(2) {
+        border-color: #00FFE0;
+        box-shadow: 0 0 12px #00FFE044;
+    }
+
+    .flavor-item:nth-child(3) {
+        border-color: #39FF14;
+        box-shadow: 0 0 12px #39FF1444;
+    }
+
+    .flavor-item:nth-child(4) {
+        border-color: #FFAA00;
+        box-shadow: 0 0 12px #FFAA0044;
+    }
+
+    .flavor-item:nth-child(5) {
+        border-color: #FF00FF;
+        box-shadow: 0 0 12px #FF00FF44;
+    }
+
+    .flavor-item:nth-child(6) {
+        border-color: #1E90FF;
+        box-shadow: 0 0 12px #1E90FF44;
+    }
+
+    .flavor-item:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .flavor-item img {
+        width: 210%;
+        max-width: 850px;
+        border-radius: 18px;
+        margin-bottom: 8px;
+        transform: translateY(10px);
+        transition: transform .3s, filter .3s;
+    }
+
+    .flavor-item:hover img {
+        transform: translateY(5px) scale(1.08);
+        filter: brightness(1.15) saturate(1.15);
+    }
+
+    /* ------------------ BUTTON-STYLES ------------------ */
+    .flavor-item button {
+        margin-top: -5px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 700;
+        background: linear-gradient(145deg, #111, #333);
+        color: #fff;
+        border: none;
+        padding: 14px 28px;
+        font-size: 1.05rem;
+        cursor: pointer;
+        border-radius: 28px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        transition: all .2s;
+        position: relative;
+        overflow: visible; /* damit +1 sichtbar ist */
+    }
+
+        .flavor-item button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(145deg, #222, #444);
+        }
+
+        .flavor-item button:active {
+            transform: scale(0.95);
+        }
+
+        /* ------------------ +1 ANIMATION ------------------ */
+        .flavor-item button .plusOne {
+            position: absolute;
+            top: 10%;
+            right: 12%;
+            transform: translateY(0) scale(0);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            color: #fff;
+            background: rgba(0,0,0,0.15);
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 1rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: transform .25s ease, opacity .25s ease, background .2s;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Zustand während Animation */
+        .flavor-item button.animate {
+            background: linear-gradient(145deg, #2ecc71, #27ae60);
+            color: #fff;
+        }
+
+            .flavor-item button.animate .plusOne {
+                transform: translateY(-40px) scale(1);
+                opacity: 1;
+                background: rgba(0,0,0,0.25);
+                color: #eafff0;
+                font-size: 1.15rem;
+            }
+
+        /* kleine Ausblend-Transition nachdem +1 kurz gezeigt wurde */
+        .flavor-item button .plusOne.hide {
+            transform: translateY(-70px) scale(0.8);
+            opacity: 0;
+            transition: transform .35s ease-in, opacity .35s ease-in;
+        }
+
+/* ------------------ SEITE 3 & 4 ------------------ */
+#page3-4-wrapper {
+    background: linear-gradient(180deg, #5A107A 0%, #B43FE0 100%);
+}
+
+#page3 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 5vh 5vw;
+    color: #fff;
+    min-height: 110vh;
+    background: transparent;
+}
+
+    #page3 .image-container {
+        flex: 1 1 500px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        #page3 .image-container img {
+            width: 90%;
+            max-width: 850px;
+            border-radius: 18px;
+        }
+
+    #page3 .text-container {
+        flex: 1 1 400px;
+        padding-left: 20px;
+        font-size: 1.8rem;
+        line-height: 1.5;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        opacity: 0;
+        transform: translateX(-30px);
+        transition: all 1s ease;
+    }
+
+        #page3 .text-container.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+#page4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding-top: 20px;
+    color: white;
+    background: transparent;
+    transition: background-color 0.5s ease;
+}
+
+.page4-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 4rem;
+    font-weight: 700;
+    color: black;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: all 1s ease;
+}
+
+    .page4-title.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+.page4-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 95%;
+    gap: 20px;
+    flex-grow: 1;
+    height: calc(100vh-100px);
+    position: relative;
+}
+
+.bomb-area {
+    background: #1E90FF;
+    border-radius: 25px;
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    height: 100%;
+    align-items: center;
+    position: relative;
+}
+
+.bomb-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: black;
+    text-align: center;
+    margin-bottom: 10px;
+    border-radius: 15px;
+}
+
+.divider-line {
+    height: 6px;
+    background: #001f4d;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}
+
+.bomb-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 15px;
+    justify-items: center;
+    align-items: start;
+    flex-grow: 1;
+    height: 100%;
+}
+
+.bomb {
+    width: 70%;
+    cursor: pointer;
+    transition: transform .2s;
+}
+
+    .bomb:hover {
+        transform: scale(1.05);
+    }
+
+.win-box {
+    background: white;
+    border-radius: 30px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 25px;
+    min-height: 95%;
+    color: black;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+    .win-box ul {
+        list-style: none;
+        padding-left: 0;
+        font-size: 1.4rem;
+        margin: 0;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .win-box li {
+        padding: 10px;
+        border-radius: 15px;
+        background: linear-gradient(135deg, #FFD700, #FFC300);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        font-weight: bold;
+        font-size: 1.2rem;
+        width: 90%;
+        text-align: center;
+        margin: 5px auto;
+        animation: popReward 0.6s forwards;
+    }
+
+.redeem-button {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    transition: all .2s;
+    margin-top: 15px;
+}
+
+    .redeem-button.redeemed,
+    .redeem-button.disabled {
+        background: #1e5c29;
+        cursor: default;
+    }
+
+    .redeem-button.disabled {
+        background: gray;
+        color: #ccc;
+        cursor: not-allowed;
+    }
+
+.game-over-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Poppins', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: black;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+    .game-over-message.show {
+        opacity: 1;
+    }
+
+@keyframes explosionAnim {
+    0% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+        filter: brightness(1);
+    }
+
+    30% {
+        transform: scale(1.5) rotate(20deg);
+        opacity: 1;
+        filter: brightness(1.5);
+    }
+
+    60% {
+        transform: scale(2.5) rotate(-10deg);
+        opacity: 0.8;
+        filter: brightness(2);
+    }
+
+    100% {
+        transform: scale(3) rotate(30deg);
+        opacity: 0;
+        filter: brightness(0);
+    }
+}
+
+@keyframes popTafel {
+    0% {
+        transform: scale(0) rotate(-10deg);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(0.6) rotate(5deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0.5) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes popReward {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ------------------ CHECKOUT OVERLAY ------------------ */
+.checkout-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+
+.checkout-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90%;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+    .checkout-container h2 {
+        font-family: 'Poppins', sans-serif;
+        color: #6E1C9B;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+.close-checkout {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #6E1C9B;
+    cursor: pointer;
+}
+
+.checkout-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+    .checkout-item img {
+        width: 50px;
+        border-radius: 8px;
+        margin-right: 10px;
+    }
+
+    .checkout-item span {
+        flex: 1;
+    }
+
+.total {
+    font-weight: bold;
+    text-align: right;
+    margin-top: 15px;
+}
+
+.checkout-container button {
+    width: 100%;
+    padding: 12px;
+    background: #6E1C9B;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 1rem;
+}
+
+    .checkout-container button:hover {
+        background: #8E38C1;
+    }
+
+.payment-form {
+    display: none;
+    flex-direction: column;
+}
+
+    .payment-form input {
+        padding: 10px;
+        margin: 8px 0;
+        border-radius: 10px;
+        border: 2px solid #ddd;
+        outline: none;
+    }
+
+        .payment-form input:focus {
+            border-color: #6E1C9B;
+        }
+
+
+#scrollTopBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 9999;
+}
+
+    #scrollTopBtn:hover {
+        background: rgba(0, 0, 0, 0.8);
+        transform: translateY(-3px);
+    }
+
+    #scrollTopBtn.show {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+.thankyou-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: linear-gradient(135deg, #6E1C9B, #BE9D3B);
+    color: white;
+    padding: 40px 60px;
+    border-radius: 30px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    z-index: 300;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    opacity: 0;
+}
+
+    .thankyou-message.show {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+
+/* ------------------ RESPONSIVE ------------------ */
+@media(max-width:1024px) {
+    .flavor-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .page4-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .bomb-area,
+    .win-box {
+        height: auto;
+        width: 100%;
+    }
+}
+
+@media(max-width:768px) {
+    .flavor-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width:480px) {
+    .flavor-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+#impressumPage {
+    display: none;
+    background-color: #333;
+    color: #fff;
+    min-height: 100vh;
+    padding: 40px;
+    position: relative;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+    #impressumPage a {
+        color: #fff;
+        text-decoration: underline;
+    }
+
+    #impressumPage h1,
+    #impressumPage h3 {
+        text-align: center;
+        color: #fff;
+    }
+
+    #impressumPage .content-wrapper {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+#closeImpressum {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 1.5rem;
+    background: #fff;
+    color: #333;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+/* ------------------ RECHTLICHER FOOTER ------------------ */
+#legalSection {
+    background-color: #555;
+    color: #fff;
+    padding: 15px 20px;
+    text-align: center;
+    position: relative;
+    font-size: 1rem;
+}
+
+    #legalSection a {
+        color: #fff;
+        text-decoration: underline;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+
+        #legalSection a:hover {
+            color: #f0f0f0;
+        }
+
+/* ------------------ RESPONSIVE ------------------ */
+@media(max-width:768px) {
+    #impressumPage {
+        padding: 20px;
+    }
+
+    #closeImpressum {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+    }
+}
