@@ -108,7 +108,7 @@ html, body {
     top: 50%;
     right: 8%;
     transform: translateY(-50%);
-    width: 400px;
+    width: 27vw;
     z-index: 4;
 }
 
@@ -957,6 +957,7 @@ html, body {
     }
 
 }
+
 
 
 
