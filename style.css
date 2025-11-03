@@ -247,8 +247,8 @@ html, body {
     transform: translate(-50%, -50%) rotate(-25deg); /* schräg */
     font-family: 'Poppins', sans-serif;
     font-weight: 800;
-    font-size: 2.5rem; /* groß über die Box */
-    opacity: 0.4; /* etwas sichtbarer, aber dezent */
+    font-size: 2rem; /* groß über die Box */
+    opacity: 0.6; /* etwas sichtbarer, aber dezent */
     text-transform: uppercase;
     pointer-events: none;
     z-index: 1;
@@ -956,4 +956,5 @@ html, body {
         height: 35px;
         font-size: 1.2rem;
     }
+
 }
