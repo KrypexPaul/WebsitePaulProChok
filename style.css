@@ -1,4 +1,4 @@
-﻿* {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -7,21 +7,72 @@
 html, body {
     width: 100%;
     height: 100%;
-    margin: 0;
-    padding: 0;
-    font-family: 'Montserrat', 'Roboto', 'Poppins', 'Quicksand', sans-serif; /* Grundschriftart */
+    font-family: 'Montserrat', 'Roboto', 'Poppins', 'Quicksand', sans-serif;
+    overflow-x: hidden;
 }
 
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.8s ease-out;
+/* ------------------ HERO ------------------ */
+.hero {
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(135deg, #14051D 0%, #3D1056 50%, #6E1C9B 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
 }
 
-    .fade-in.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Original Desktop-Layout */
+.protein-image {
+    position: absolute;
+    top: 50%;
+    right: 8%;
+    transform: translateY(-50%);
+    width: 27vw;
+    z-index: 4;
+}
+
+.low-calorie-img {
+    position: absolute;
+    top: 40%;
+    left: 8%;
+    width: 18vw;
+    z-index: 10;
+}
+
+.choco-image {
+    position: absolute;
+    top: 62%;
+    left: 48%;
+    width: 76vw;
+    z-index: 3;
+    transform: translate(-50%, -50%) rotate(-15deg);
+}
+
+.logo-image {
+    position: absolute;
+    top: 12%;
+    left: 47%;
+    transform: translate(-50%, -50%);
+    width: 41vw;
+    z-index: 6;
+    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.3));
+}
+
+/* ------------------ SLOGAN ------------------ */
+.slogan {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    font-family: "Arial Rounded MT Bold", Arial, sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    background: linear-gradient(to right, #BE9D3B, #ECE07B, #F3E883, #E4CC67, #DBB652);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    z-index: 10;
+}
 
 /* ------------------ WARENKORB ------------------ */
 .cart-container {
@@ -65,91 +116,120 @@ html, body {
     transform: scale(1.2);
 }
 
-/* pulsieren wenn item hinzugefügt */
-.cart-container.pulse .cart-icon {
-    animation: cartPulse 0.6s ease;
-}
-
+/* ------------------ ANIMATION ------------------ */
 @keyframes cartPulse {
-    0% {
-        transform: scale(1);
-        filter: drop-shadow(0 0 0 rgba(0,0,0,0));
+    0% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(0,0,0,0)); }
+    30% { transform: scale(1.18); filter: drop-shadow(0 8px 14px rgba(0,0,0,0.25)); }
+    60% { transform: scale(0.98); }
+    100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(0,0,0,0)); }
+}
+
+/* ------------------ MEDIA QUERIES ------------------ */
+
+/* Tablets */
+@media (max-width: 1024px) {
+    .protein-image {
+        width: 35vw;
+        right: 6%;
+        top: 52%;
     }
 
-    30% {
-        transform: scale(1.18);
-        filter: drop-shadow(0 8px 14px rgba(0,0,0,0.25));
+    .low-calorie-img {
+        width: 25vw;
+        left: 6%;
+        top: 42%;
     }
 
-    60% {
-        transform: scale(0.98);
+    .choco-image {
+        width: 90vw;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-10deg);
     }
 
-    100% {
-        transform: scale(1);
-        filter: drop-shadow(0 0 0 rgba(0,0,0,0));
+    .logo-image {
+        width: 50vw;
+        top: 14%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .slogan {
+        bottom: 15px;
+        right: 20px;
+        font-size: 1.6rem;
+    }
+
+    .cart-container {
+        width: 50px;
+        height: 50px;
+        top: 15px;
+        right: 15px;
+    }
+
+    .cart-badge {
+        width: 25px;
+        height: 25px;
+        font-size: 0.9rem;
     }
 }
 
-/* ------------------ HERO ------------------ */
-.hero {
-    height: 100vh;
-    width: 100%;
-    background: linear-gradient(135deg, #14051D 0%, #3D1056 50%, #6E1C9B 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-}
+/* Smartphones */
+@media (max-width: 600px) {
+    .hero {
+        height: 100vh;
+    }
 
-.protein-image {
-    position: absolute;
-    top: 50%;
-    right: 8%;
-    transform: translateY(-50%);
-    width: 27vw;
-    z-index: 4;
-}
+    .protein-image {
+        top: 58%;
+        right: auto;
+        left: 55%;
+        width: 55vw;
+        transform: translate(-50%, -50%);
+    }
 
-.low-calorie-img {
-    position: absolute;
-    top: 40%;
-    left: 8%;
-    width: 18vw;
-    z-index: 10;
-}
+    .low-calorie-img {
+        top: 40%;
+        left: 45%;
+        width: 35vw;
+        transform: translate(-50%, -50%);
+    }
 
-.choco-image {
-    position: absolute;
-    top: 62%;
-    left: 48%;
-    width: 76vw;
-    z-index: 3;
-    transform: translate(-50%, -50%) rotate(-15deg);
-}
+    .choco-image {
+        top: 70%;
+        left: 50%;
+        width: 100vw;
+        transform: translate(-50%, -50%) rotate(-5deg);
+    }
 
-.logo-image {
-    position: absolute;
-    top: 12%;
-    left: 47%;
-    transform: translate(-50%, -50%);
-    width: 41vw;
-    z-index: 6;
-    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.3));
-}
+    .logo-image {
+        top: 15%;
+        left: 50%;
+        width: 70vw;
+        transform: translate(-50%, -50%);
+    }
 
-.slogan {
-    position: absolute;
-    bottom: 20px;
-    right: 30px;
-    font-family: "Arial Rounded MT Bold", Arial, sans-serif;
-    font-size: 2rem;
-    font-weight: bold;
-    background: linear-gradient(to right, #BE9D3B, #ECE07B, #F3E883, #E4CC67, #DBB652);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    z-index: 10;
+    .slogan {
+        position: absolute;
+        bottom: 5vh;
+        right: 0;
+        left: 0;
+        text-align: center;
+        font-size: 1.3rem;
+    }
+
+    .cart-container {
+        width: 45px;
+        height: 45px;
+        top: 10px;
+        right: 10px;
+    }
+
+    .cart-badge {
+        width: 22px;
+        height: 22px;
+        font-size: 0.8rem;
+    }
 }
 
 /* ------------------ SORTIMENT ------------------ */
@@ -247,8 +327,8 @@ html, body {
     transform: translate(-50%, -50%) rotate(-25deg); /* schräg */
     font-family: 'Poppins', sans-serif;
     font-weight: 800;
-    font-size: 1.8rem; /* groß über die Box */
-    opacity: 0.6; /* etwas sichtbarer, aber dezent */
+    font-size: 2.5rem; /* groß über die Box */
+    opacity: 0.4; /* etwas sichtbarer, aber dezent */
     text-transform: uppercase;
     pointer-events: none;
     z-index: 1;
@@ -467,7 +547,7 @@ html, body {
             opacity: 1;
             transform: translateX(0);
         }
-
+/* ------------------ PAGE 4 ------------------ */
 #page4 {
     display: flex;
     flex-direction: column;
@@ -480,6 +560,7 @@ html, body {
     transition: background-color 0.5s ease;
 }
 
+/* Titel */
 .page4-title {
     font-family: 'Poppins', sans-serif;
     font-size: 4rem;
@@ -490,12 +571,12 @@ html, body {
     transform: translateY(-30px);
     transition: all 1s ease;
 }
+.page4-title.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-    .page4-title.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
+/* Hauptcontainer */
 .page4-container {
     display: flex;
     justify-content: center;
@@ -503,10 +584,11 @@ html, body {
     width: 95%;
     gap: 20px;
     flex-grow: 1;
-    height: calc(100vh-100px);
+    height: calc(100vh - 100px);
     position: relative;
 }
 
+/* Bombenbereich */
 .bomb-area {
     background: #1E90FF;
     border-radius: 25px;
@@ -537,6 +619,7 @@ html, body {
     border-radius: 3px;
 }
 
+/* Bombenraster */
 .bomb-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -552,11 +635,11 @@ html, body {
     cursor: pointer;
     transition: transform .2s;
 }
+.bomb:hover {
+    transform: scale(1.05);
+}
 
-    .bomb:hover {
-        transform: scale(1.05);
-    }
-
+/* Gewinnbox */
 .win-box {
     background: white;
     border-radius: 30px;
@@ -571,31 +654,32 @@ html, body {
     position: relative;
 }
 
-    .win-box ul {
-        list-style: none;
-        padding-left: 0;
-        font-size: 1.4rem;
-        margin: 0;
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-    }
+.win-box ul {
+    list-style: none;
+    padding-left: 0;
+    font-size: 1.4rem;
+    margin: 0;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
 
-    .win-box li {
-        padding: 10px;
-        border-radius: 15px;
-        background: linear-gradient(135deg, #FFD700, #FFC300);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        font-weight: bold;
-        font-size: 1.2rem;
-        width: 90%;
-        text-align: center;
-        margin: 5px auto;
-        animation: popReward 0.6s forwards;
-    }
+.win-box li {
+    padding: 10px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #FFD700, #FFC300);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    font-size: 1.2rem;
+    width: 90%;
+    text-align: center;
+    margin: 5px auto;
+    animation: popReward 0.6s forwards;
+}
 
+/* Button */
 .redeem-button {
     background: #28a745;
     color: white;
@@ -608,19 +692,18 @@ html, body {
     transition: all .2s;
     margin-top: 15px;
 }
+.redeem-button.redeemed,
+.redeem-button.disabled {
+    background: #1e5c29;
+    cursor: default;
+}
+.redeem-button.disabled {
+    background: gray;
+    color: #ccc;
+    cursor: not-allowed;
+}
 
-    .redeem-button.redeemed,
-    .redeem-button.disabled {
-        background: #1e5c29;
-        cursor: default;
-    }
-
-    .redeem-button.disabled {
-        background: gray;
-        color: #ccc;
-        cursor: not-allowed;
-    }
-
+/* Game Over Nachricht */
 .game-over-message {
     position: absolute;
     top: 50%;
@@ -634,10 +717,129 @@ html, body {
     transition: opacity 0.5s ease;
     pointer-events: none;
 }
+.game-over-message.show {
+    opacity: 1;
+}
 
-    .game-over-message.show {
-        opacity: 1;
+/* ------------------ MEDIA QUERIES ------------------ */
+
+/* Tablets */
+@media (max-width: 1024px) {
+    /* Gesamt-Skalierung */
+    #page4 {
+        transform: scale(0.9);           /* Seite 4 auf 90% verkleinern */
+        transform-origin: top center;    /* Skalierung von oben mittig */
     }
+
+    .page4-title {
+        font-size: 3rem;
+        text-align: center;
+    }
+
+    .page4-container {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        gap: 30px;
+    }
+
+    .bomb-area {
+        width: 100%;
+        padding: 30px;
+    }
+
+    .bomb-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+
+    .win-box {
+        width: 90%;
+        min-height: auto;
+        padding: 20px;
+    }
+
+    .win-box ul {
+        font-size: 1.2rem;
+    }
+
+    .win-box li {
+        font-size: 1rem;
+    }
+
+    .redeem-button {
+        font-size: 1.1rem;
+        padding: 12px;
+    }
+
+    .game-over-message {
+        font-size: 2.2rem;
+    }
+}
+
+/* Smartphones */
+@media (max-width: 600px) {
+    /* Gesamt-Skalierung */
+    #page4 {
+        transform: scale(0.75);          /* Seite 4 auf 75% verkleinern */
+        transform-origin: top center;    /* Skalierung von oben mittig */
+        padding-top: 10px;
+    }
+
+    .page4-title {
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+    }
+
+    .page4-container {
+        flex-direction: column;
+        gap: 25px;
+        width: 100%;
+    }
+
+    .bomb-area {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .bomb-title {
+        font-size: 1.8rem;
+    }
+
+    .bomb-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .bomb {
+        width: 80%;
+    }
+
+    .win-box {
+        width: 90%;
+        padding: 15px;
+        min-height: auto;
+    }
+
+    .win-box ul {
+        font-size: 1rem;
+    }
+
+    .win-box li {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    .redeem-button {
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+    .game-over-message {
+        font-size: 1.8rem;
+    }
+}
+
 
 @keyframes explosionAnim {
     0% {
@@ -813,6 +1015,7 @@ html, body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    opacity: 0;
     pointer-events: none;
     transition: all 0.3s ease;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
@@ -955,11 +1158,4 @@ html, body {
         height: 35px;
         font-size: 1.2rem;
     }
-
 }
-
-
-
-
-
-
