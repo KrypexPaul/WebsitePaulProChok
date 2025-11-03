@@ -1,4 +1,4 @@
-﻿// ------------------ Warenkorb ------------------
+// ------------------ Warenkorb ------------------
 let cart = [];
 let discountPercent = 0;
 let isRedeemed = false;
@@ -6,22 +6,35 @@ let wonRewardText = '';
 
 const cartCount = document.getElementById('cartCount');
 const cartContainer = document.getElementById('cartContainer');
+const redeemButton = document.getElementById('redeemButton');
 
-/* ------------------ BUTTON-ANIMATION (+1) & WARENKORB ------------------ */
+// Für jeden Button separat Timer und Buffer
+const buttonStates = new Map();
+
+/* ------------------ BUTTON-ANIMATION (+1 / +2 / ...) & WARENKORB ------------------ */
 function addToCart(btn, name, imgSrc, price) {
-    // --- Button-Animation (+1) ---
-    const plus = btn.querySelector('.plusOne');
-    btn.classList.add('animate');
+    // Button-State initialisieren
+    if (!buttonStates.has(btn)) {
+        buttonStates.set(btn, { clickBuffer: 0, clickTimer: null });
+    }
+    const state = buttonStates.get(btn);
+
+    // --- SUMMIERUNG innerhalb 1 Sekunde ---
+    state.clickBuffer++;
+    const plus = btn.querySelector('.plusOne') || createPlusSpan(btn);
+    plus.textContent = `+${state.clickBuffer}`;
     plus.classList.remove('hide');
 
-    // kurz anzeigen, dann ausblenden
-    setTimeout(() => plus.classList.add('hide'), 420);
+    // Timer zurücksetzen
+    if (state.clickTimer) clearTimeout(state.clickTimer);
+    state.clickTimer = setTimeout(() => {
+        state.clickBuffer = 0;
+        plus.classList.add('hide');
+        btn.classList.remove('animate'); // Button wieder grau
+    }, 1000);
 
-    // Entferne animate-Klasse danach, damit Button wieder normal wird
-    setTimeout(() => {
-        btn.classList.remove('animate');
-        plus.classList.remove('hide');
-    }, 750);
+    // --- Button-Animation GRÜN ---
+    btn.classList.add('animate');
 
     // --- Warenkorb-Logik ---
     let item = cart.find(i => i.name === name);
@@ -33,6 +46,18 @@ function addToCart(btn, name, imgSrc, price) {
 
     // kleine visuelle Rückmeldung am Warenkorb-Icon
     doCartPulse();
+
+    // Update Checkout direkt (falls Checkout-Seite offen)
+    updateCheckout();
+}
+
+// Helper: falls .plusOne span fehlt, erstellen
+function createPlusSpan(btn) {
+    const span = document.createElement('span');
+    span.className = 'plusOne hide';
+    span.textContent = '+1';
+    btn.appendChild(span);
+    return span;
 }
 
 function doCartPulse() {
@@ -40,36 +65,14 @@ function doCartPulse() {
     setTimeout(() => cartContainer.classList.remove('pulse'), 650);
 }
 
-/* ------------------ SCROLL-BUTTON ------------------ */
-const scrollTopBtn = document.getElementById('scrollTopBtn');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 200) scrollTopBtn.classList.add('show');
-    else scrollTopBtn.classList.remove('show');
-});
-scrollTopBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-/* ------------------ CHECKOUT OVERLAY ------------------ */
-cartContainer.addEventListener('click', () => {
-    // Warenkorb-Daten speichern
-    localStorage.setItem('checkoutCart', JSON.stringify(cart));
-
-    // Gewinninfos speichern
-    localStorage.setItem('wonRewardText', wonRewardText);
-    localStorage.setItem('discountPercent', discountPercent);
-
-    // Checkout öffnen
-    window.open('checkout.html', '_blank');
-});
-
 /* ------------------ CHECKOUT AKTUALISIEREN ------------------ */
 function updateCheckout() {
     const itemsDiv = document.getElementById('checkoutItems');
     const totalDiv = document.getElementById('checkoutTotal');
-    const discountDiv = document.getElementById('discountDisplay');
-    const redeemButton = document.getElementById('redeemButton');
     const winList = document.getElementById('winList');
+    const discountDiv = document.getElementById('discountDisplay');
+
+    if (!itemsDiv) return; // Falls Checkout-Seite noch nicht geladen
 
     itemsDiv.innerHTML = '';
     let total = 0;
@@ -92,20 +95,29 @@ function updateCheckout() {
         li.textContent = wonRewardText;
         li.style.animation = 'popReward 0.6s forwards';
         winList.appendChild(li);
-        // direkt speichern
+
         localStorage.setItem('wonRewardText', wonRewardText);
         localStorage.setItem('discountPercent', discountPercent);
     }
 
-    redeemButton.addEventListener('click', () => {
-        if (!discountPercent && !wonRewardText) return;
-        isRedeemed = true;
+    // Redeem-Button Status
+    if (isRedeemed) {
         redeemButton.textContent = 'Eingelöst';
         redeemButton.classList.add('redeemed');
-        localStorage.setItem('wonRewardText', wonRewardText);
-        localStorage.setItem('discountPercent', discountPercent);
-    });
+    } else {
+        redeemButton.textContent = 'Einlösen';
+        redeemButton.classList.remove('redeemed');
+    }
 }
+
+// ------------------ Warenkorb Button ------------------
+cartContainer.addEventListener('click', () => {
+    localStorage.setItem('checkoutCart', JSON.stringify(cart));
+    localStorage.setItem('wonRewardText', wonRewardText);
+    localStorage.setItem('discountPercent', discountPercent);
+
+    window.open('checkout.html', '_blank');
+});
 
 /* ------------------ PAYMENT FORM ANZEIGEN ------------------ */
 document.getElementById('proceedPayment').addEventListener('click', () => {
@@ -147,6 +159,16 @@ window.addEventListener('message', event => {
         cartCount.textContent = 0;
         updateCheckout();
     }
+});
+
+/* ------------------ REDEEM BUTTON ------------------ */
+redeemButton.addEventListener('click', () => {
+    if (isRedeemed) return;
+    isRedeemed = true;
+    redeemButton.textContent = 'Eingelöst';
+    redeemButton.classList.add('redeemed');
+    localStorage.setItem('wonRewardText', wonRewardText);
+    localStorage.setItem('discountPercent', discountPercent);
 });
 
 /* ------------------ MINI-SPIEL ------------------ */
