@@ -106,8 +106,8 @@ html, body {
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 75vw;      /* doppelte Bildschirmbreite */
-        height: 75vh;     /* doppelte Bildschirmhöhe */
+        width: vw;      /* doppelte Bildschirmbreite */
+        height: 68vh;     /* doppelte Bildschirmhöhe */
         max-width: none;
         max-height: none;
         transform: translate(-50%, -50%);
@@ -696,15 +696,21 @@ html, body {
 .win-box {
     background: white;
     border-radius: 30px;
-    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     padding: 25px;
-    min-height: 95%;
     color: black;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     position: relative;
+
+    height: auto; /* oder einfach weglassen */
+    flex: 0 0 auto; /* verhindert, dass flex-grow die Box streckt */
+}
+.win-box {
+    min-width: 20vw;
+    max-height: 90vh; /* passt sich an Inhalt an, geht aber nicht über Bildschirm */
+    overflow-y: auto;  /* scrollbar, falls Inhalt größer */
 }
 
 .win-box ul {
@@ -1053,37 +1059,6 @@ html, body {
             border-color: #6E1C9B;
         }
 
-
-#scrollTopBtn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 45px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    z-index: 9999;
-}
-
-    #scrollTopBtn:hover {
-        background: rgba(0, 0, 0, 0.8);
-        transform: translateY(-3px);
-    }
-
-    #scrollTopBtn.show {
-        opacity: 1;
-        pointer-events: auto;
-    }
 
 .thankyou-message {
     position: fixed;
