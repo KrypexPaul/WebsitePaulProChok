@@ -1,3 +1,4 @@
+/* ------------------ GLOBAL RESET ------------------ */
 * {
     margin: 0;
     padding: 0;
@@ -8,7 +9,7 @@ html, body {
     width: 100%;
     height: 100%;
     font-family: 'Montserrat', 'Roboto', 'Poppins', 'Quicksand', sans-serif;
-    overflow-x: hidden;
+    overflow-x: hidden; /* verhindert horizontalen Weißraum */
 }
 
 /* ------------------ HERO ------------------ */
@@ -23,13 +24,15 @@ html, body {
     overflow: hidden;
 }
 
-/* Original Desktop-Layout */
+/* ------------------ BILDER / LOGO ------------------ */
+/* Desktop / Tablet */
 .protein-image {
     position: absolute;
     top: 50%;
     right: 8%;
     transform: translateY(-50%);
     width: 27vw;
+    max-width: 520px;
     z-index: 4;
 }
 
@@ -38,33 +41,38 @@ html, body {
     top: 40%;
     left: 8%;
     width: 18vw;
+    max-width: 360px;
     z-index: 10;
 }
 
 .choco-image {
     position: absolute;
     top: 62%;
-    left: 48%;
+    left: 50%;
     width: 76vw;
-    z-index: 3;
+    max-width: 1450px;
     transform: translate(-50%, -50%) rotate(-15deg);
+    z-index: 3;
 }
 
 .logo-image {
     position: absolute;
     top: 12%;
-    left: 47%;
-    transform: translate(-50%, -50%);
+    left: 50%;
+    transform: translateX(-50%);
     width: 41vw;
+    max-width: 780px;
     z-index: 6;
     filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.3));
 }
 
 /* ------------------ SLOGAN ------------------ */
+/* Desktop / Tablet: rechts unten */
 .slogan {
     position: absolute;
-    bottom: 20px;
-    right: 30px;
+    bottom: 5%;
+    right: 3%;
+    left: auto;
     font-family: "Arial Rounded MT Bold", Arial, sans-serif;
     font-size: 2rem;
     font-weight: bold;
@@ -72,6 +80,51 @@ html, body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     z-index: 10;
+}
+
+/* ------------------ SMARTPHONE LAYOUT (<768px) ------------------ */
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        height: 100vh;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    /* Logo oben */
+    .logo-image {
+        position: absolute;
+        top: 2%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        max-width: 400px;
+        z-index: 10;
+    }
+
+    /* Schoko-Bild mittig und deutlich größer */
+    .choco-image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 95vw;       /* fast volle Breite */
+        max-width: none;
+        transform: translate(-50%, -50%);
+        z-index: 5;
+    }
+
+    /* Low-Calorie & Protein ausblenden */
+    .protein-image,
+    .low-calorie-img {
+        display: none;
+    }
+
+    /* Slogan komplett ausblenden */
+    .slogan {
+        display: none;
+    }
 }
 
 /* ------------------ WARENKORB ------------------ */
